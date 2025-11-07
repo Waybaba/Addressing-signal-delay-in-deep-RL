@@ -7,16 +7,17 @@
 		"--gpus=all",
 		"--volume", "${localEnv:UDATADIR}:/data",
 		"--volume", "${localEnv:UPRJDIR}:/code",
-		"--volume", "${localEnv:UOUTDIR}:/output",
+		"--volume", "${localEnv:UOUTDIR}:/output"
 	],
 	"overrideCommand": false, // important! the default true will override the command in the dockerfile as "/bin/sh -c "while sleep 1000; do :; done"" so that tensorboard service will be down
+	"postCreateCommand": "python -c \"import torch; print(f'CUDA available: {torch.cuda.is_available()}, Device count: {torch.cuda.device_count()}')\" || echo 'GPU check failed - ensure nvidia-container-toolkit is installed on host'",
 	"extensions": [
-		"ms-python.python",
+		"ms-python.python"
 	],
 	// for China
 	"settings": {
 		"lldb.adapterType": "native",
 		"lldb.executable": "/usr/bin/lldb",
-		"terminal.integrated.shell.linux": "/bin/bash"
+		"terminal.integrated.defaultProfile.linux": "bash"
 	}
 }
