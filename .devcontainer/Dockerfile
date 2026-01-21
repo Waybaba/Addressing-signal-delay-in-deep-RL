@@ -76,7 +76,7 @@ RUN pip install \
 # mujoco==3.3 cause > 3.3 is problem.
 RUN pip install \
     hydra-joblib-launcher \
-    gymnasium \
+    gymnasium[mujoco] \
     mujoco==2.3.3 \
     tianshou==0.4.11 \
     ftfy \
