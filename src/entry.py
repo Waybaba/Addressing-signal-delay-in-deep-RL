@@ -34,13 +34,18 @@ def initialize_wandb(cfg):
 
 	os.makedirs(wandb_dir, exist_ok=True)
 
-	wandb.init(
-		project=cfg.task_name,
-		tags=cfg.tags,
-		config=utils.config_format(cfg),
-		dir=wandb_dir,
-		mode=cfg.wandb.mode
-	)
+	init_kwargs = {
+		"project": cfg.task_name,
+		"tags": cfg.tags,
+		"config": utils.config_format(cfg),
+		"dir": wandb_dir,
+		"mode": cfg.wandb.mode
+	}
+	# Add group if specified
+	if cfg.wandb.get("group") is not None:
+		init_kwargs["group"] = cfg.wandb.group
+	
+	wandb.init(**init_kwargs)
 	return wandb_dir
 
 def move_output_to_wandb_dir(src_dir, dest_dir):

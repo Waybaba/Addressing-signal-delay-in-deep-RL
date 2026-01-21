@@ -87,4 +87,5 @@ python src/entry.py \
   global_cfg.actor_input.history_merge_method=cat_mlp \
   seed="${SEED}" \
   wandb.mode=online \
-  wandb.buf_dir=false
+  wandb.buf_dir=false \
+  wandb.group="${WANDB_GROUP}"
