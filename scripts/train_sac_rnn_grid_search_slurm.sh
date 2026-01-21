@@ -2,12 +2,12 @@
 # SLURM training script for SAC-RNN experiment - Grid search over environments, delays, and seeds
 # Parameters (loop order: env.name -> env.delay -> seed):
 #   - env.name: HalfCheetah-v5, Ant-v5, Walker2d-v5, Hopper-v5 (4 values)
-#   - env.delay: 0, 4, 8, 12, 16, 20 (6 values)
-#   - seed: 0, 1, 2, 3, 4 (5 values)
-# Total combinations: 4 * 6 * 5 = 120
+#   - env.delay: 4, 8, 16 (3 values)
+#   - seed: 0, 1, 2 (3 values)
+# Total combinations: 4 * 3 * 3 = 36
 
 #SBATCH --job-name=sac-rnn-grid-search
-#SBATCH --array=0-119%40
+#SBATCH --array=0-35%40
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -27,20 +27,22 @@ PRJ_DIR="${HOME}/code/tmp/Addressing-signal-delay-in-deep-RL"
 
 ### Parameter arrays (order: env.name -> env.delay -> seed)
 ENV_NAMES=("HalfCheetah-v5" "Ant-v5" "Walker2d-v5" "Hopper-v5")
-DELAYS=(0 4 8 12 16 20)
-SEEDS=(0 1 2 3 4)
+# DELAYS=(0 4 8 12 16 20)  # old values
+DELAYS=(4 8 16)
+# SEEDS=(0 1 2 3 4)  # old values
+SEEDS=(0 1 2)
 
 # Calculate indices from task ID
-# Total combinations: 4 * 6 * 5 = 120
+# Total combinations: 4 * 3 * 3 = 36
 # Loop order: env.name (outermost) -> env.delay -> seed (innermost)
-# env_name_idx = task_id / (6 * 5) = task_id / 30
-# delay_idx = (task_id / 5) % 6
-# seed_idx = task_id % 5
+# env_name_idx = task_id / (3 * 3) = task_id / 9
+# delay_idx = (task_id / 3) % 3
+# seed_idx = task_id % 3
 
 TASK_ID=$SLURM_ARRAY_TASK_ID
-ENV_NAME_IDX=$((TASK_ID / 30))
-DELAY_IDX=$(((TASK_ID / 5) % 6))
-SEED_IDX=$((TASK_ID % 5))
+ENV_NAME_IDX=$((TASK_ID / 9))
+DELAY_IDX=$(((TASK_ID / 3) % 3))
+SEED_IDX=$((TASK_ID % 3))
 
 # Get parameter values
 ENV_NAME=${ENV_NAMES[$ENV_NAME_IDX]}
