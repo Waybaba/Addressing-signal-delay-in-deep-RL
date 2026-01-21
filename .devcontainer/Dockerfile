@@ -53,8 +53,8 @@ RUN apt-get update && apt-get install -y \
 #     && rm -rf /var/lib/apt/lists/*
 
 ### pip - base
+# hydra-joblib-launcher \
 RUN pip install \
-    # hydra-joblib-launcher \
     hydra-core \
     hydra-colorlog \
     hydra-optuna-sweeper \
@@ -65,7 +65,7 @@ RUN pip install \
     sh \
     omegaconf \
     rich \
-    pytorch-lightning==1.7.7 \
+    pytorch-lightning \
     jupyter \
     wandb \
     tensorboardx \

@@ -93,11 +93,14 @@ If you wish to use `Pip` or `Conda` for managing Python dependencies, please ref
 conda create -n address python=3.10 -y
 conda activate address
 
+# 降级 pip（pytorch-lightning==1.7.7 的元数据格式需要 pip<24.1）
+pip install "pip<24.1"
+
 pip install \
     hydra-core \
     hydra-colorlog \
     hydra-optuna-sweeper \
-    torchmetrics \
+    "torchmetrics<0.10" \
     pyrootutils \
     pre-commit \
     pytest \
@@ -112,7 +115,7 @@ pip install \
     
 pip install \
     hydra-joblib-launcher \
-    gymnasium[mujoco] \
+    "gymnasium[mujoco]" \
     tianshou==0.4.11 \
     ftfy \
     regex \
