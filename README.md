@@ -88,7 +88,11 @@ If you wish to use `Pip` or `Conda` for managing Python dependencies, please ref
 
 1. Install Pytorch from official website ([link](https://pytorch.org/get-started/locally/)).
 
-```latex
+```bash
+# 建议先创建并激活独立环境，避免污染全局
+conda create -n address-delay python=3.10 -y
+conda activate address-delay
+
 pip install \
     hydra-core \
     hydra-colorlog \
@@ -108,8 +112,7 @@ pip install \
     
 pip install \
     hydra-joblib-launcher \
-    gymnasium \
-    mujoco==2.3.3 \
+    gymnasium[mujoco] \
     tianshou==0.4.11 \
     ftfy \
     regex \
