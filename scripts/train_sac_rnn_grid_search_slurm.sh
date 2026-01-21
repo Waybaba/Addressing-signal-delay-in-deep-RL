@@ -6,7 +6,7 @@
 #   - seed: 0, 1, 2 (3 values)
 # Total combinations: 4 * 3 * 3 = 36
 
-#SBATCH --job-name=sac-rnn-grid-search
+#SBATCH --job-name=grid-search
 #SBATCH --array=0-35%40
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
@@ -68,7 +68,7 @@ echo "  - run_name: $RUN_NAME"
 echo ""
 
 python src/entry.py \
-  experiment=sac_rnn \
+  experiment=cat_mlp \
   env.name="${ENV_NAME}" \
   +env.d_touch_ratio=0.5 \
   +env.touch_rbase=1 \
