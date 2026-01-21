@@ -90,8 +90,8 @@ If you wish to use `Pip` or `Conda` for managing Python dependencies, please ref
 
 ```bash
 # 建议先创建并激活独立环境，避免污染全局
-conda create -n address-delay python=3.10 -y
-conda activate address-delay
+conda create -n address python=3.10 -y
+conda activate address
 
 pip install \
     hydra-core \
