@@ -52,8 +52,6 @@ def make_env(env_cfg):
     else:
         import gymnasium as gym
     
-    # 统一时间步长：让所有环境的action持续时间都一致为0.008秒
-    # 通过修改model timestep来实现
     if env_cfg.use_contact_forces:
         env = gym.make(env_cfg.name, use_contact_forces=True)
     else:
@@ -61,11 +59,7 @@ def make_env(env_cfg):
             import panda_gym
         env = gym.make(env_cfg.name)
     
-    # 修改HalfCheetah和Ant的model timestep从0.01改为0.002
-    if env_cfg.name in ["HalfCheetah-v5", "Ant-v5"]:
-        env.unwrapped.model.opt.timestep = 0.002
-        # 同时设置frame_skip=4，这样duration = 0.002 * 4 = 0.008秒
-        env.unwrapped.frame_skip = 4
+    # 不再修改HalfCheetah和Ant的timestep和frame_skip，使用默认值
 
     if env_cfg.name.startswith("Panda"):
         env = MergeObsActWrapper(env)
