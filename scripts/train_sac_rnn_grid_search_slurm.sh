@@ -21,7 +21,7 @@ export PYTHONUNBUFFERED=1
 
 ### VARIABLES
 WANDB_PROJECT="signal-delay-rl"
-WANDB_GROUP="sac_rnn_grid_search"
+WANDB_GROUP="sac_rnn_grid_search_v1"
 CONDA_ENV="address"
 PRJ_DIR="${HOME}/code/tmp/Addressing-signal-delay-in-deep-RL"
 
@@ -75,8 +75,8 @@ python src/entry.py \
   +env.goal_rratio=10 \
   env.delay="${DELAY}" \
   env.save_minari=false \
-  start_timesteps=100 \
-  trainer.episode_per_test=1 \
+  start_timesteps=10000 \
+  trainer.episode_per_test=10 \
   trainer.max_epoch=1000 \
   trainer.step_per_epoch=5000 \
   trainer.batch_size=32 \
